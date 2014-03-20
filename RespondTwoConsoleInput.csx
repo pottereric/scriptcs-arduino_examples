@@ -1,8 +1,8 @@
 // Setup the board
 var ctx = Require<ArduinoContext>();
 var board = ctx.CreateBoard();
-var led13 = new Led(board, 13);
-
+var led12 = new Led(board, 12);
+Console.WriteLine("Begin");
 while(true)
 {
 	var input = Console.ReadLine();
@@ -14,16 +14,19 @@ while(true)
 		case "delluminate":
 			TurnOffLed();
 			break;
+		default:
+			Console.WriteLine("Unrecognized Command");
+			break;
 	}	
 }
 
 private void TurnOnLed()
 {
-	led13.On();
+	led12.On();
 }
 
 private void TurnOffLed()
 {
-	led13.Off();
+	led12.Off();
 }
 
