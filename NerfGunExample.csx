@@ -1,14 +1,16 @@
 var ctx = Require<ArduinoContext>();
 var arduino = ctx.CreateBoard();
 
-var mosfetPin = 12;
+var motorMosfetPin = 8;
+var relayMosfetPin = 12;
 var ledPin = 10;
 
 Action wait = () => Thread.Sleep(1.Seconds());
 
 var led = new Led(arduino, ledPin);
 
-arduino.PinMode(mosfetPin, PinMode.Output);
+arduino.PinMode(motorMosfetPin, PinMode.Output);
+arduino.PinMode(relayMosfetPin, PinMode.Output);
 
 Console.WriteLine("Begin");
 while(true)
@@ -17,13 +19,16 @@ while(true)
 	switch(input.ToLower())
 	{	
 		case "on":
-			TurnOnMosfet();
+			TurnOnRelayMosfet();
 			break;
 		case "off":
-			TurnOffMosfet();
+			TurnOffRelayMosfet();
 			break;
 		case "fire":
 			Fire();
+			break;
+		case "spin":
+			Spin();
 			break;
 		default:
 			Console.WriteLine("Unrecognized Command");
@@ -34,21 +39,40 @@ while(true)
 private void Fire()
 {
 	Console.WriteLine("bang");
-	TurnOnMosfet();
+	TurnOnRelayMosfet();
 	wait();
-	TurnOffMosfet();
+	TurnOffRelayMosfet();
 	Console.WriteLine("boom");
 }
 
-private void TurnOnMosfet()
+private void TurnOnRelayMosfet()
 {
-	arduino.DigitalWrite(mosfetPin, DigitalPin.High);
+	arduino.DigitalWrite(relayMosfetPin, DigitalPin.High);
 	led.On();
 }
 
-private void TurnOffMosfet()
+private void TurnOffRelayMosfet()
 {
-	arduino.DigitalWrite(mosfetPin, DigitalPin.Low);
+	arduino.DigitalWrite(relayMosfetPin, DigitalPin.Low);
+	led.Off();
+}
+
+private void Spin()
+{
+	TurnOnMotorMosfet();
+	wait();
+	TurnOffMotorMosfet();
+}
+
+private void TurnOnMotorMosfet()
+{
+	arduino.DigitalWrite(motorMosfetPin, DigitalPin.High);
+	led.On();
+}
+
+private void TurnOffMotorMosfet()
+{
+	arduino.DigitalWrite(motorMosfetPin, DigitalPin.Low);
 	led.Off();
 }
 
