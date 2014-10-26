@@ -2,10 +2,10 @@
 var ctx = Require<ArduinoContext>();
 var board = ctx.CreateBoard();
 
-var ledPin = 2;
+var ledPin = 9;
 var led2 = new Led(board, ledPin);
 
-var buttonPin = 13;
+var buttonPin = 2;
 board.PinMode(buttonPin, PinMode.Input);
 
 // setup the delay

@@ -1,9 +1,9 @@
 var ctx = Require<ArduinoContext>();
 var arduino = ctx.CreateBoard();
 
-var motorMosfetPin = 8;
-var relayMosfetPin = 12;
-var ledPin = 10;
+var motorMosfetPin = 10;
+var relayMosfetPin = 3;
+var ledPin = 11;
 
 Action wait = () => Thread.Sleep(1.Seconds());
 Action waitShort = () => Thread.Sleep(75);
@@ -20,11 +20,17 @@ while(true)
 	var input = Console.ReadLine();
 	switch(input.ToLower())
 	{	
-		case "on":
+		case "relayon":
 			TurnOnRelayMosfet();
 			break;
-		case "off":
+		case "relayoff":
 			TurnOffRelayMosfet();
+			break;
+		case "motoron":
+			TurnOnMotorMosfet();
+			break;
+		case "motoroff":
+			TurnOffMotorMosfet();
 			break;
 		case "fire":
 			Fire();
@@ -42,7 +48,7 @@ private void Fire()
 {
 	Console.WriteLine("bang");
 	TurnOnRelayMosfet();
-	wait();
+	waitShort();
 	TurnOffRelayMosfet();
 	Console.WriteLine("boom");
 }

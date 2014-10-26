@@ -10,13 +10,16 @@ Console.WriteLine("Begin");
 
 StrobeLed(2);
 StrobeLed(3);
+StrobeLed(4);
 StrobeLed(5);
 StrobeLed(6);
-StrobeLed(7);
-StrobeLed(8);
+//StrobeLed(7);
+//StrobeLed(8);
 StrobeLed(9);
 StrobeLed(10);
 StrobeLed(11);
+StrobeLed(12);
+StrobeLed(13);
 
 
 //wait();
