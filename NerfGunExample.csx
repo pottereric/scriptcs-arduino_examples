@@ -10,8 +10,8 @@ Action waitShort = () => Thread.Sleep(75);
 
 var led = new Led(arduino, ledPin);
 
-arduino.PinMode(motorMosfetPin, PinMode.Output);
-//arduino.PinMode(motorMosfetPin, PinMode.Analog);
+//arduino.PinMode(motorMosfetPin, PinMode.Output);
+arduino.PinMode(motorMosfetPin, PinMode.Pwm);
 arduino.PinMode(relayMosfetPin, PinMode.Output);
 
 Console.WriteLine("Begin");
@@ -67,9 +67,22 @@ private void TurnOffRelayMosfet()
 
 private void Spin()
 {
-	TurnOnMotorMosfet();
-	waitShort();
-	TurnOffMotorMosfet();
+	//TurnOnMotorMosfet();
+	//waitShort();
+	//TurnOffMotorMosfet();
+
+	arduino.AnalogWrite(motorMosfetPin, 50);
+	Thread.Sleep(15);
+	arduino.AnalogWrite(motorMosfetPin, 100);
+	Thread.Sleep(15);
+	arduino.AnalogWrite(motorMosfetPin, 150);
+	Thread.Sleep(15);
+	arduino.AnalogWrite(motorMosfetPin, 200);
+	Thread.Sleep(25);
+	arduino.AnalogWrite(motorMosfetPin, 250);
+	Thread.Sleep(25);
+	arduino.AnalogWrite(motorMosfetPin, 0);
+	Console.WriteLine("spun");
 }
 
 private void TurnOnMotorMosfet()
